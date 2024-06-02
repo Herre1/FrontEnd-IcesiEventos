@@ -5,6 +5,7 @@ import React from "react";
 import LoginPage from "./pages/LoginPage.js";
 import RegisterPage from "./pages/RegisterPage.js";
 import Catalog from './pages/CatalogPage.js';
+import MyEvents from './pages/MyEvents.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/catalog" element={<Catalog />} />
+            <Route path="/MyEvents" element={<MyEvents />} />
           </Routes>
         </BrowserRouter>
       </React.StrictMode>
