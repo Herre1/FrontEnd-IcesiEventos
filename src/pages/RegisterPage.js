@@ -12,7 +12,31 @@ import '../styles/RegisterPage.css';
 
 function Register() {
   const navigate = useNavigate(); 
+  const [username, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [relationship, setRelation] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setcity] = useState("");
 
+  async function save(event) {
+    event.preventDefault();
+    try {
+      await axios.post("http://localhost:5432/auth/register", {
+        username: username,
+        password: password,
+        first_name: first_name,
+        last_name: last_name,
+        relationship: relationship,
+        email: email,
+        city: city
+      });
+      alert("User Registration Successful");
+    } catch (err) {
+      alert(err.message); // Es mejor usar err.message para obtener detalles del error
+    }
+  }
 
   return (
     <div className="register-container">
@@ -28,25 +52,35 @@ function Register() {
           </div>
           <form>
             <div className="register-input-group">
-              <label>ID</label>
-              <div className="register-input-wrapper">
-                <img src={lockImage} className="register-input-icon" alt="ID" />
-                <input
-                  type="text"
-                  name="codigo"
-                  placeholder="Ingresa tu código"
-                />
-              </div>
-              <div className="register-input-underline"></div>
-            </div>
-            <div className="register-input-group">
               <label>Username</label>
               <div className="register-input-wrapper">
                 <img src={userImage} className="register-input-icon" alt="Username" />
                 <input
                   type="text"
                   name="usuario"
+                  id="usuario"
                   placeholder="Ingresa tu usuario"
+                  value={username}
+                      onChange={(event) => {
+                        setUser(event.target.value);
+                      }}
+                />
+              </div>
+              <div className="register-input-underline"></div>
+            </div>
+            <div className="register-input-group">
+              <label>Password</label>
+              <div className="register-input-wrapper">
+                <img src={lockImage} className="register-input-icon" alt="ID" />
+                <input
+                  type="text"
+                  name="contraseña"
+                  id="contraseña"
+                  placeholder="Ingresa tu contraseña"
+                  value={password}
+                      onChange={(event) => {
+                        setPassword(event.target.value);
+                      }}
                 />
               </div>
               <div className="register-input-underline"></div>
@@ -58,7 +92,12 @@ function Register() {
                 <input
                   type="text"
                   name="firstName"
+                  id="firstName"
                   placeholder="Ingresa tu nombre"
+                  value={first_name}
+                      onChange={(event) => {
+                        setFirstName(event.target.value);
+                      }}
                 />
               </div>
               <div className="register-input-underline"></div>
@@ -70,7 +109,12 @@ function Register() {
                 <input
                   type="text"
                   name="lastName"
+                  id="lastName"
                   placeholder="Ingresa tu apellido"
+                  value={last_name}
+                      onChange={(event) => {
+                        setLastName(event.target.value);
+                      }}
                 />
               </div>
               <div className="register-input-underline"></div>
@@ -83,6 +127,11 @@ function Register() {
                   type="text"
                   name="relationship"
                   placeholder="Ingresa tu relacion con la institucion"
+                  id="relation"
+                  value={relationship}
+                      onChange={(event) => {
+                        setRelation(event.target.value);
+                      }}
                 />
               </div>
               <div className="register-input-underline"></div>
@@ -94,7 +143,12 @@ function Register() {
                 <input
                   type="text"
                   name="email"
+                  id="email"
                   placeholder="Ingresa tu email"
+                  value={email}
+                      onChange={(event) => {
+                        setEmail(event.target.value);
+                      }}
                 />
               </div>
               <div className="register-input-underline"></div>
@@ -106,12 +160,17 @@ function Register() {
                 <input
                   type="text"
                   name="city"
+                  id="cities"
                   placeholder="Ingresa tu ciudad"
+                  value={city}
+                      onChange={(event) => {
+                        setcity(event.target.value);
+                      }}
                 />
               </div>
               <div className="register-input-underline"></div>
             </div>
-            <button type="submit" className="register-button">Registrar</button>
+            <button type="submit" onClick={save} className="register-button">Registrar</button>
           </form>
         </div>
       </div>
