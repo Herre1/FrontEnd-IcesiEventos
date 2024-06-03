@@ -2,6 +2,7 @@ import * as React from "react";
 import '../styles/MyEvents.css';  
 import Navbar from "../components/Navbar.js";
 import searchIcon from '../assets/buscar.png';
+import buscarIco from '../assets/buscar.png';
 
 function MyEvents() {
   return (
@@ -14,9 +15,14 @@ function MyEvents() {
             <div className="header-content">
               <div className="title">Mis Eventos</div>
               <div className="search-bar">
-                <img loading="lazy" src={searchIcon} className="search-icon" alt="Buscar" />
-                <div className="search-text">Buscar</div>
-              </div>
+            <img
+              loading="lazy"
+              src={buscarIco}
+              className="search-icon"
+              alt="Buscar"
+            />
+            <input type="text" placeholder="Buscar" className="search-bar" />
+          </div>
             </div>
           </div>
           <div className="events">

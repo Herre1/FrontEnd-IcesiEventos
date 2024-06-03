@@ -1,0 +1,44 @@
+/* Estilos para cartas */
+
+.event-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    height: 330px;
+  }
+  
+  .event-image {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .event-details {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .event-title {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 20px;
+  }
+  
+  .event-title-image {
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+  }
+  
+  .card-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;            
+    display: inline-block;       
+  }

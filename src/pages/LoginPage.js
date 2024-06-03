@@ -105,7 +105,7 @@ function Login() {
               </div>
               <div className="input-underline"></div>
             </div>
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit" className='loginButton'>Iniciar Sesión</button>
           </form>
           {message && <p className="error-message">{message}</p>}
         </div>

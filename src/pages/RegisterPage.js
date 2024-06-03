@@ -5,6 +5,8 @@ import registerImage from '../assets/registerImage.jpg';
 import lockImage from '../assets/lock.jpg';
 import userImage from '../assets/user2.png';
 import groupImage from '../assets/group.jpg';
+import cityImage from '../assets/organization.jpg';
+import emailImage from '../assets/correo.png';
 import axios from 'axios';
 import '../styles/RegisterPage.css';
 
@@ -88,7 +90,7 @@ function Register() {
             <div className="register-input-group">
               <label>Email</label>
               <div className="register-input-wrapper">
-                <img src={groupImage} className="register-input-icon" alt="email" />
+                <img src={emailImage} className="register-input-icon" alt="email" />
                 <input
                   type="text"
                   name="email"
@@ -100,7 +102,7 @@ function Register() {
             <div className="register-input-group">
               <label>City</label>
               <div className="register-input-wrapper">
-                <img src={groupImage} className="register-input-icon" alt="city" />
+                <img src={cityImage} className="register-input-icon" alt="city" />
                 <input
                   type="text"
                   name="city"

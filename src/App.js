@@ -6,6 +6,8 @@ import LoginPage from "./pages/LoginPage.js";
 import RegisterPage from "./pages/RegisterPage.js";
 import Catalog from './pages/CatalogPage.js';
 import MyEvents from './pages/MyEvents.js';
+import EventForm from './pages/EventForm.js';
+import UserProfilePage from './pages/UserProfilePage.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -19,6 +21,8 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/MyEvents" element={<MyEvents />} />
+            <Route path="/EventForm" element={<EventForm />} />
+            <Route path="/UserProfilePage" element={<UserProfilePage />} />
           </Routes>
         </BrowserRouter>
       </React.StrictMode>

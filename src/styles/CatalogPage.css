@@ -24,24 +24,6 @@
   gap: 20px;
 }
 
-.event-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  width: 250px;
-  flex-shrink: 0;
-}
-
-.event-image {
-  width: 100%;
-  height: auto;
-}
-
-.event-details {
-  padding: 10px;
-}
-
 /* Estilos para todos los eventos */
 .all-events {
   margin-top: 40px;
@@ -81,21 +63,4 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-}
-
-.event-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  width: 100%;
-}
-
-.event-image {
-  width: 100%;
-  height: auto;
-}
-
-.event-details {
-  padding: 10px;
 }

@@ -1,57 +1,118 @@
-import * as React from "react";
-import '../styles/CatalogPage.css';
+import React, { useState } from 'react';
 import buscarIco from '../assets/buscar.png';
 import defaultEventImage from '../assets/loginImage.jpg';
 import Navbar from "../components/Navbar.js";
-
+import EventCard from '../components/EventCard.js';
+import '../styles/CatalogPage.css';
 
 function Catalog() {
+
+  const eventsProx = [
+    {
+      id: 1,
+      title: 'Proyecto COLIBRI Bienestar Universitario',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Actividad Lúdica',
+      imageSrc: ''
+    },
+    {
+      id: 2,
+      title: 'Proyecto Prueba',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Conferencia',
+      imageSrc: 'https://img.freepik.com/foto-gratis/colores-arremolinados-interactuan-danza-fluida-sobre-lienzo-que-muestra-tonos-vibrantes-patrones-dinamicos-que-capturan-caos-belleza-arte-abstracto_157027-2892.jpg'
+    },
+    {
+      id: 3,
+      title: 'Proyecto COLIBRI Bienestar',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Auditoria',
+      imageSrc: ''
+    },
+    // Otros eventos...
+  ];
+
+  const events = [
+    {
+      id: 1,
+      title: 'Proyecto COLIBRI Bienestar Universitario',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Actividad Lúdica',
+      imageSrc: ''
+    },
+    {
+      id: 2,
+      title: 'Proyecto Prueba',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Conferencia',
+      imageSrc: 'https://img.freepik.com/foto-gratis/colores-arremolinados-interactuan-danza-fluida-sobre-lienzo-que-muestra-tonos-vibrantes-patrones-dinamicos-que-capturan-caos-belleza-arte-abstracto_157027-2892.jpg'
+    },
+    {
+      id: 3,
+      title: 'Proyecto COLIBRI Bienestar',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Auditoria',
+      imageSrc: ''
+    },
+    {
+      id: 4,
+      title: 'Proyecto COLIBRI',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Auditoria',
+      imageSrc: ''
+    },
+    {
+      id: 5,
+      title: 'Proyecto CANVA',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Auditoria',
+      imageSrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuCtYjGF4SZ3WRKSh9ZCIKoCTUenwSteD-sw&s'
+    },
+    {
+      id: 6,
+      title: 'Pruebas',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Auditoria',
+      imageSrc: ''
+    },
+    {
+      id: 7,
+      title: 'Increible',
+      date: '10/08/2024',
+      time: '09:00',
+      type: 'Auditoria',
+      imageSrc: 'https://www.shutterstock.com/image-illustration/david-street-style-graphic-designtextile-600nw-2265632523.jpg'
+    },
+    // Otros eventos...
+  ];
+  
+
   return (
     <div className="catalog-container">
       <Navbar />
       <div className="main-content-catalog">
         <div className="recent-events-catalog">
-          <h2>Eventos agregados recientemente</h2>
+          <h2>Eventos proximos</h2>
           <div className="recent-events-catalog-grid">
-            <div className="event-card">
-              <img
-                loading="lazy"
-                src={defaultEventImage}
-                className="event-image"
-                alt="Evento reciente"
-              />
-              <div className="event-details">
-                <h3>Proyecto COLIBRI Bienestar U...</h3>
-                <p>Actividad Ludica</p>
-                <p>10/08/2024 - 09:00</p>
-              </div>
-            </div>
-            <div className="event-card">
-              <img
-                loading="lazy"
-                src={defaultEventImage}
-                className="event-image"
-                alt="Evento reciente"
-              />
-              <div className="event-details">
-                <h3>Presentación de nuevas normas</h3>
-                <p>Conferencia</p>
-                <p>08/06/2024 - 15:00</p>
-              </div>
-            </div>
-            <div className="event-card">
-              <img
-                loading="lazy"
-                src={defaultEventImage}
-                className="event-image"
-                alt="Evento reciente"
-              />
-              <div className="event-details">
-                <h3>Evento 3</h3>
-                <p>Descripción del evento</p>
-                <p>Fecha - Hora</p>
-              </div>
-            </div>
+          {eventsProx.map(event => (
+            <EventCard
+              key={event.id}
+              title={event.title}
+              date={event.date}
+              time={event.time}
+              type={event.type}
+              imageSrc={event.imageSrc || defaultEventImage}
+            />
+          ))}
           </div>
         </div>
         <div className="all-events">
@@ -66,72 +127,16 @@ function Catalog() {
             <input type="text" placeholder="Buscar" className="search-input" />
           </div>
           <div className="all-events-catalog-grid">
-            <div className="event-card">
-              <img
-                loading="lazy"
-                src={defaultEventImage}
-                className="event-image"
-                alt="Reunión de decanos"
-              />
-              <div className="event-details">
-                <h3>Reunión de decanos</h3>
-                <p>Reunión</p>
-                <p>30/05/2024 - 12:00</p>
-              </div>
-            </div>
-            <div className="event-card">
-              <img
-                loading="lazy"
-                src={defaultEventImage}
-                className="event-image"
-                alt="Reunión creativa INN&Emp"
-              />
-              <div className="event-details">
-                <h3>Reunión creativa INN&Emp</h3>
-                <p>Reunión</p>
-                <p>04/06/2024 - 12:00</p>
-              </div>
-            </div>
-            <div className="event-card">
-              <img
-                loading="lazy"
-                src={defaultEventImage}
-                className="event-image"
-                alt="Conferencia"
-              />
-              <div className="event-details">
-                <h3>Presentación de nuevas normas</h3>
-                <p>Conferencia</p>
-                <p>08/06/2024 - 15:00</p>
-              </div>
-            </div>
-            <div className="event-card">
-              <img
-                loading="lazy"
-                src={defaultEventImage}
-                className="event-image"
-                alt="PERFICIANT Conferencia"
-              />
-              <div className="event-details">
-                <h3>PERFICIANT Conferencia</h3>
-                <p>Conferencia</p>
-                <p>12/05/2024 - 09:00</p>
-              </div>
-            </div>
-            <div className="event-card">
-              <img
-                loading="lazy"
-                src={defaultEventImage}
-                className="event-image"
-                alt="Actividad Ludica"
-              />
-              <div className="event-details">
-                <h3>Proyecto COLIBRI Bienestar U...</h3>
-                <p>Actividad Ludica</p>
-                <p>10/08/2024 - 09:00</p>
-              </div>
-            </div>
-            {/* Añadir más eventos aquí */}
+          {events.map(event => (
+            <EventCard
+              key={event.id}
+              title={event.title}
+              date={event.date}
+              time={event.time}
+              type={event.type}
+              imageSrc={event.imageSrc || defaultEventImage}
+            />
+          ))}
           </div>
         </div>
       </div>
