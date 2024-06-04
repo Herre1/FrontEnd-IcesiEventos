@@ -14,8 +14,8 @@ function Register() {
   const navigate = useNavigate(); 
   const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [relationship, setRelation] = useState("");
   const [email, setEmail] = useState("");
   const [city, setcity] = useState("");
@@ -26,8 +26,8 @@ function Register() {
       await axios.post("http://localhost:5432/auth/register", {
         username: username,
         password: password,
-        first_name: first_name,
-        last_name: last_name,
+        firstName: firstName,
+        lastName: lastName,
         relationship: relationship,
         email: email,
         city: city
@@ -94,7 +94,7 @@ function Register() {
                   name="firstName"
                   id="firstName"
                   placeholder="Ingresa tu nombre"
-                  value={first_name}
+                  value={firstName}
                       onChange={(event) => {
                         setFirstName(event.target.value);
                       }}
@@ -111,7 +111,7 @@ function Register() {
                   name="lastName"
                   id="lastName"
                   placeholder="Ingresa tu apellido"
-                  value={last_name}
+                  value={lastName}
                       onChange={(event) => {
                         setLastName(event.target.value);
                       }}

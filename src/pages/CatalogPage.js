@@ -9,7 +9,26 @@ function Catalog() {
   const [events, setEvents] = useState([]);
   const [eventsProx, setEventsProx] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [myevents, setmyEvents] = useState([]);
 
+  
+  
+
+  useEffect(() => {
+    // Obtén el ID del usuario desde el almacenamiento local
+    const userId = localStorage.getItem('cuenta');
+    
+    // Obtén los eventos del backend
+    if (userId) {
+      fetch(`http://localhost:5432/events/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          setmyEvents(data);
+        })
+        .catch(error => console.error('Error fetching events:', error));
+    }
+  }, []);
+  
   useEffect(() => {
     // Obtén los eventos del backend
     fetch('http://localhost:5432/events/getEvent')
@@ -17,10 +36,19 @@ function Catalog() {
       .then(data => {
         setEvents(data);
         // Filtra los eventos próximos basados en tu lógica de proximidad
-        setEventsProx(data.filter(event => new Date(event.date) > new Date()));
+        const userInterestedCategories = myevents.map(event => event.categories).flat();
+        const userRegisteredEvents = myevents.map(event => event.id);
+        const recommendedEvents = data.filter(event => {
+          const eventCategories = event.categories;
+          return (
+            eventCategories.some(category => userInterestedCategories.includes(category)) &&
+            !userRegisteredEvents.includes(event.id)
+          );
+        });
+        setEventsProx(recommendedEvents);
       })
       .catch(error => console.error('Error fetching events:', error));
-  }, []);
+  }, [myevents]);
 
   // Filtrar eventos basado en la búsqueda
   const filteredEvents = events.filter(event => {
@@ -37,7 +65,7 @@ function Catalog() {
       <Navbar />
       <div className="main-content-catalog">
         <div className="recent-events-catalog">
-          <h2>Eventos proximos</h2>
+          <h2>Eventos recomendados</h2>
           <div className="recent-events-catalog-grid">
             {eventsProx.map(event => (
               <EventCard

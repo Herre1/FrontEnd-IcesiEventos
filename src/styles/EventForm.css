@@ -24,6 +24,7 @@
 
 .EventForm-labels {
   margin-bottom: 10px;
+  padding-right: 10px;
 }
 
 .EventForm-input[type="text"],

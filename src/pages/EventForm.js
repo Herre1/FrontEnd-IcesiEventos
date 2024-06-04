@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/EventForm.css';
 import Navbar from "../components/Navbar.js";
+import { useNavigate } from 'react-router-dom';
 
 function EventForm() {
   const [title, setTitle] = useState('');
@@ -11,7 +12,10 @@ function EventForm() {
   const [faculties, setFaculties] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [cities, setCities] = useState([]);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedFaculty, setSelectedFaculty] = useState(null);
+  const [selectedProgram, setSelectedProgram] = useState(null);
+  const [selectedCity, setSelectedCity] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('http://localhost:5432/faculties/getFaculty')
@@ -30,33 +34,24 @@ function EventForm() {
       .catch(error => console.error('Error fetching cities:', error));
   }, []);
 
-  const handleCheckboxChange = (e, type) => {
-    const { value, checked } = e.target;
-    const option = { id: value, type };
-
-    if (checked) {
-      console.log("IF "+checked);
-      setSelectedOptions([...selectedOptions, option]);
-    } else {
-      console.log("ELSE "+checked);
-      setSelectedOptions(selectedOptions.filter(item => item.id !== value || item.type !== type));
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const faculties = selectedOptions.filter(option => option.type === 'faculty').map(option => ({ id: option.id }));
-    const programs = selectedOptions.filter(option => option.type === 'program').map(option => ({ id: option.id }));
-
+    
+    const selectedFacultyDetails = faculties.find(faculty => faculty.code === parseInt(selectedFaculty));
+    const selectedProgramDetails = programs.find(program => program.code === parseInt(selectedProgram));
+    const selectedCityDetails = cities.find(city => city.name === selectedCity);
+    
     const newEvent = {
       title,
       description,
       categories: categories.split(',').map(category => category.trim()),
       date,
-      location,
-      faculties,
-      programs,
+      location: {
+        city: selectedCityDetails ? selectedCityDetails.name : '',
+        address: location.address,
+      },
+      faculties: selectedFacultyDetails ? [selectedFacultyDetails] : [],
+      programs: selectedProgramDetails ? [selectedProgramDetails] : [],
       attendants: [],
       comments: []
     };
@@ -70,7 +65,7 @@ function EventForm() {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
+        if (data) {
           alert('Event registered successfully');
           // Clear the form
           setTitle('');
@@ -78,7 +73,11 @@ function EventForm() {
           setCategories('');
           setDate('');
           setLocation({ city: '', address: '' });
-          setSelectedOptions([]);
+          setSelectedFaculty(null);
+          setSelectedProgram(null);
+          setSelectedCity('');
+          // Redirect to the /catalogo-eventos page
+          navigate('/catalogo-eventos');
         } else {
           console.error('Error registering event:', data.message);
         }
@@ -110,10 +109,10 @@ function EventForm() {
           </label>
           <label className='EventForm-labels'>
             Location City:
-            <select value={location.city} onChange={(e) => setLocation({ ...location, city: e.target.value })} required>
+            <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} required>
               <option value="">Select a city</option>
               {cities.map(city => (
-                <option key={city.code} value={city.name}>{city.name}</option>
+                <option key={city.name} value={city.name}>{city.name}</option>
               ))}
             </select>
           </label>
@@ -121,40 +120,24 @@ function EventForm() {
             Location Address:
             <input type="text" value={location.address} onChange={(e) => setLocation({ ...location, address: e.target.value })} required />
           </label>
-          <label className='EventForm-labels'>Faculties:</label>
-          <ul>
-            {faculties.map(faculty => (
-              <li key={faculty.code}>
-                <label htmlFor={`checkbox-${faculty.code}`}>
-                  <input
-                    type="checkbox"
-                    id={`checkbox-${faculty.code}`}
-                    value={faculty.code}
-                    checked={selectedOptions.some(option => option.code == faculty.code && option.type == 'faculty')}
-                    onChange={(e) => handleCheckboxChange(e, 'faculty')}
-                  />
-                  {faculty.name}
-                </label>
-              </li>
-            ))}
-          </ul>
-          <label className='EventForm-labels'>Programs:</label>
-          <ul>
-            {programs.map(program => (
-              <li key={program.id}>
-                <label htmlFor={`checkbox-${program.code}`}>
-                  <input
-                    type="checkbox"
-                    id={`checkbox-${program.code}`}
-                    value={program.code}
-                    checked={selectedOptions.some(option => option.id === program.code && option.type === 'program')}
-                    onChange={(e) => handleCheckboxChange(e, 'program')}
-                  />
-                  {program.name}
-                </label>
-              </li>
-            ))}
-          </ul>
+          <label className='EventForm-labels'>
+            Faculty:
+            <select value={selectedFaculty} onChange={(e) => setSelectedFaculty(e.target.value)} required>
+              <option value="">Select a faculty</option>
+              {faculties.map(faculty => (
+                <option key={faculty.code} value={faculty.code}>{faculty.name}</option>
+              ))}
+            </select>
+          </label>
+          <label className='EventForm-labels'>
+            Program:
+            <select value={selectedProgram} onChange={(e) => setSelectedProgram(e.target.value)} required>
+              <option value="">Select a program</option>
+              {programs.map(program => (
+                <option key={program.code} value={program.code}>{program.name}</option>
+              ))}
+            </select>
+          </label>
           <button type="submit">Register Event</button>
         </form>
       </div>

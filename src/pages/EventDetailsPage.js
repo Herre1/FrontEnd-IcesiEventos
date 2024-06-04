@@ -112,9 +112,9 @@ function EventDetailsPage() {
 
           <h3>Attendants</h3>
           <ul>
-          {event.attendants.map((attendant, index) => (
-            <li key={index}>{attendant.usuario ? `${attendant.usuario.username} - ${attendant.role}` : 'Unknown user'}</li>
-          ))}
+           {event.attendants.map((attendant, index) => (
+  <li key={index}>{attendant.usuario ? `${attendant.usuario.username} - ${attendant.role}` : 'Unknown user'}</li>
+))}
           </ul>
 
           {!isRegistered ? (
