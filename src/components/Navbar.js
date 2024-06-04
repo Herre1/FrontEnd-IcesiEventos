@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 import MisEventos from '../assets/MisEventos.png';
-import ProximosEventos from '../assets/ProximosEventos.png';
 import CatalogoEventos from '../assets/CatalogoEventos.png';
 import RegistroEventos from '../assets/RegistroEventos.png';
 import Usuario from '../assets/usuario.png';
@@ -31,24 +31,28 @@ const Navbar = () => {
         </div>
       </div>
       <div className="menu-item">
-        <img src={MisEventos} alt="Mis Eventos" className="menu-image" />
-        <div className="menu-text">Mis Eventos</div>
+        <Link to="/mis-eventos" className="menu-link">
+          <img src={MisEventos} alt="Mis Eventos" className="menu-image" />
+          <div className="menu-text">Mis Eventos</div>
+        </Link>
       </div>
       <div className="menu-item">
-        <img src={CatalogoEventos} alt="Catalogo de Eventos" className="menu-image" />
-        <div className="menu-text">Catalogo de Eventos</div>
+        <Link to="/catalogo-eventos" className="menu-link">
+          <img src={CatalogoEventos} alt="Catalogo de Eventos" className="menu-image" />
+          <div className="menu-text">Catalogo de Eventos</div>
+        </Link>
       </div>
       <div className="menu-item">
-        <img src={ProximosEventos} alt="Eventos Proximos" className="menu-image" />
-        <div className="menu-text">Eventos Proximos</div>
+        <Link to="/registro-eventos" className="menu-link">
+          <img src={RegistroEventos} alt="Registrar Eventos" className="menu-image" />
+          <div className="menu-text">Registrar Eventos</div>
+        </Link>
       </div>
       <div className="menu-item">
-        <img src={RegistroEventos} alt="Registrar Eventos" className="menu-image" />
-        <div className="menu-text">Registrar Eventos</div>
-      </div>
-      <div className="menu-item">
-        <img src={LogoutEventos} alt="Logout Eventos" className="menu-image" />
-        <div className="menu-text">Cerrar Sesion</div>
+        <Link to="/" className="menu-link">
+          <img src={LogoutEventos} alt="Logout Eventos" className="menu-image" />
+          <div className="menu-text">Cerrar Sesion</div>
+        </Link>
       </div>
       <img src={Logo} alt="Logo" className="logo" />
       <div className="footer-text">Todos los derechos reservados 2024 ©</div>

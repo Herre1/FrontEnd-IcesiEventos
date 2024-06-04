@@ -10,6 +10,27 @@ const EventCard = ({ title, date, time, type, imageSrc }) => {
     setStarImage(prevSrc => prevSrc === estrella ? estrellaFill : estrella);
   };
 
+  const [eventosConImagen, setEventosConImagen] = useState([]);
+/*
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await ??;
+        const eventosConImagenTemp = await Promise.all(
+          response.map(async (evento) => {
+            const imagen = await getUnsplashImage(evento.titulo);
+            return { ...evento, imagen };
+          })
+        );
+        setEventosConImagen(eventosConImagenTemp);
+      } catch (error) {
+        setEventosConImagen([]);
+      }
+    };
+
+    fetchData();
+  }, []);
+*/
   return (
     <div className="event-card">
       <div className="event-title">
