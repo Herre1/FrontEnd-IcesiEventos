@@ -22,6 +22,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/catalogo-eventos" element={<Catalog />} />
             <Route path="/mis-eventos" element={<MyEvents />} />
+            <Route path="/event/:id" element={<EventDetailsPage />} />
             <Route path="/registro-eventos" element={<EventForm />} />
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
             <Route path="/EventDetailsPage" element={<EventDetailsPage />} />

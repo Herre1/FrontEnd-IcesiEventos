@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar.js";
 import '../styles/UserProfilePage.css';
 
 function UserProfilePage() {
+
+  const [userData, setUserData] = useState([]);
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    // Obtenemos el nombre de usuario del localStorage al cargar el componente
+    const nombreUsuario = localStorage.getItem('cuenta');
+    console.log('Nombre de usuario desde localStorage:', nombreUsuario); // Verificación
+    setUser(nombreUsuario);
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:5432/users/getUser/${user}`)
+      .then(response => response.json())
+      .then(data => {
+        setUserData(data);
+      })
+      .catch(error => console.error('Error fetching events:', error));
+  }, []);
+
   return (
     <div className="user-profile-page">
       <Navbar />
@@ -20,39 +40,29 @@ function UserProfilePage() {
             <tbody>
               <tr>
                 <td>Nombre Completo :</td>
-                <td>Juan Pérez</td>
+                <td>{userData?.firstname}</td>
               </tr>
               <tr>
                 <td>Tipo de Relación con la Institución :</td>
-                <td>Estudiante</td>
+                <td>{userData?.relationship}</td>
               </tr>
               <tr>
                 <td>Email :</td>
-                <td>juan.perez@correo.com</td>
+                <td>{userData?.email}</td>
               </tr>
               <tr>
                 <td>Ciudad :</td>
-                <td>Ciudad Ejemplo</td>
+                <td>{userData?.city}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div className="events-section">
-          <div className="events-attended">
-            <h3>Eventos Asistidos :</h3>
-            <ul>
-              <li>Conferencia de Tecnología - 12/04/2023</li>
-              <li>Taller de Innovación - 18/05/2023</li>
-              <li>Seminario de Marketing - 25/06/2023</li>
-            </ul>
+        <div className="events-attended">
+            <h3>Eventos Asistidos:</h3>
           </div>
           <div className="events-organized">
-            <h3>Eventos Organizadores :</h3>
-            <ul>
-              <li>Hackathon Universitario - 03/03/2023</li>
-              <li>Feria de Ciencias - 15/04/2023</li>
-              <li>Jornada de Emprendimiento - 20/05/2023</li>
-            </ul>
+            <h3>Eventos Organizados:</h3>
           </div>
         </div>
       </div>

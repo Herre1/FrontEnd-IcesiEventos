@@ -30,7 +30,7 @@ async function login(event) {
     alert("User Login Successful");
     localStorage.setItem('cuenta',username);
     console.log(localStorage.getItem('cuenta'))
-    window.location.href = '/catalog'
+    window.location.href = '/catalogo-eventos'
   } catch (err) {
     alert(err.message); // Es mejor usar err.message para obtener detalles del error
   }

@@ -23,7 +23,9 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="user-section">
+      <Link to="/UserProfilePage" className="menu-link">
         <img src={Usuario} alt="Usuario" className="img" />
+        </Link>
         <div className="welcome-text">
           <span>Bienvenido</span>
           <br />
@@ -31,7 +33,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="menu-item">
-        <Link to="/mis-eventos" className="menu-link">
+      <Link to="/mis-eventos" className="menu-link">
           <img src={MisEventos} alt="Mis Eventos" className="menu-image" />
           <div className="menu-text">Mis Eventos</div>
         </Link>

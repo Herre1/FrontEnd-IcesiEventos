@@ -1,53 +1,51 @@
-.event-form {
-    margin: 20px;
-  }
-  
-  .input-field,
-  .textarea-field {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 10px 0;
-  }
-  
-  .textarea-field {
-    height: 100px;
-  }
-  
-  .categories,
-  .attendees {
-    margin: 20px 0;
-  }
-  
-  .category-item,
-  .attendee-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .category-button,
-  .add-button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .add-button {
-    background-color: #4CAF50;
-  }
-  
-  .event-details > div {
-    margin: 10px 0;
-  }
-  
-  .my-component-container {
-    background-color: #f2f2f2;
-    margin: 0;
-    padding-top: 60px; 
-    padding-left: 300px;
-    padding-right: 20px;
-  }
-  
+/* RegisterEventPage.css */
+.register-event-page {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.EventForm-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.EventForm-labels {
+  margin-bottom: 10px;
+}
+
+.EventForm-input[type="text"],
+.EventForm-input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}

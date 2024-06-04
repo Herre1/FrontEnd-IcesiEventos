@@ -1,38 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import estrella from '../assets/estrella.png';
+import { useNavigate } from 'react-router-dom';
 import estrellaFill from '../assets/estrellaFill.png';
 import '../styles/EventCard.css';
+import axios from 'axios';
+import getUnsplashImage from "../services/UnSplash.ts";
 
-const EventCard = ({ title, date, time, type, imageSrc }) => {
+const EventCard = ({id, title, date, time, type, imageSrc }) => {
+  
   const [starImage, setStarImage] = useState(estrella);
+  const [eventImage, setEventImage] = useState(imageSrc);
+  const navigate = useNavigate();
 
   const handleEnroll = () => {
     setStarImage(prevSrc => prevSrc === estrella ? estrellaFill : estrella);
   };
 
-  const [eventosConImagen, setEventosConImagen] = useState([]);
-/*
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchImage = async () => {
       try {
-        const response = await ??;
-        const eventosConImagenTemp = await Promise.all(
-          response.map(async (evento) => {
-            const imagen = await getUnsplashImage(evento.titulo);
-            return { ...evento, imagen };
-          })
-        );
-        setEventosConImagen(eventosConImagenTemp);
+        const image = await getUnsplashImage(title);
+        setEventImage(image);
       } catch (error) {
-        setEventosConImagen([]);
+        console.error('Error fetching Unsplash image:', error);
       }
     };
 
-    fetchData();
-  }, []);
-*/
+    fetchImage();
+  }, [title]);
+
+
+const handleClick = () => {
+  navigate(`/event/${id}`);
+};
+
   return (
-    <div className="event-card">
+    <div className="event-card" onClick={handleClick}>
       <div className="event-title">
         <h3 className="card-ellipsis">{title}</h3>
         <img
@@ -45,7 +48,7 @@ const EventCard = ({ title, date, time, type, imageSrc }) => {
       </div>
       <img
         loading="lazy"
-        src={imageSrc}
+        src={eventImage}
         className="event-image"
         alt="Evento reciente"
       />

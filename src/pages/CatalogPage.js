@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import buscarIco from '../assets/buscar.png';
 import defaultEventImage from '../assets/loginImage.jpg';
 import Navbar from "../components/Navbar.js";
@@ -6,95 +6,31 @@ import EventCard from '../components/EventCard.js';
 import '../styles/CatalogPage.css';
 
 function Catalog() {
+  const [events, setEvents] = useState([]);
+  const [eventsProx, setEventsProx] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const eventsProx = [
-    {
-      id: 1,
-      title: 'Proyecto COLIBRI Bienestar Universitario',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Actividad Lúdica',
-      imageSrc: ''
-    },
-    {
-      id: 2,
-      title: 'Proyecto Prueba',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Conferencia',
-      imageSrc: 'https://img.freepik.com/foto-gratis/colores-arremolinados-interactuan-danza-fluida-sobre-lienzo-que-muestra-tonos-vibrantes-patrones-dinamicos-que-capturan-caos-belleza-arte-abstracto_157027-2892.jpg'
-    },
-    {
-      id: 3,
-      title: 'Proyecto COLIBRI Bienestar',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Auditoria',
-      imageSrc: ''
-    },
-    // Otros eventos...
-  ];
+  useEffect(() => {
+    // Obtén los eventos del backend
+    fetch('http://localhost:5432/events/getEvent')
+      .then(response => response.json())
+      .then(data => {
+        setEvents(data);
+        // Filtra los eventos próximos basados en tu lógica de proximidad
+        setEventsProx(data.filter(event => new Date(event.date) > new Date()));
+      })
+      .catch(error => console.error('Error fetching events:', error));
+  }, []);
 
-  const events = [
-    {
-      id: 1,
-      title: 'Proyecto COLIBRI Bienestar Universitario',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Actividad Lúdica',
-      imageSrc: ''
-    },
-    {
-      id: 2,
-      title: 'Proyecto Prueba',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Conferencia',
-      imageSrc: 'https://img.freepik.com/foto-gratis/colores-arremolinados-interactuan-danza-fluida-sobre-lienzo-que-muestra-tonos-vibrantes-patrones-dinamicos-que-capturan-caos-belleza-arte-abstracto_157027-2892.jpg'
-    },
-    {
-      id: 3,
-      title: 'Proyecto COLIBRI Bienestar',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Auditoria',
-      imageSrc: ''
-    },
-    {
-      id: 4,
-      title: 'Proyecto COLIBRI',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Auditoria',
-      imageSrc: ''
-    },
-    {
-      id: 5,
-      title: 'Proyecto CANVA',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Auditoria',
-      imageSrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuCtYjGF4SZ3WRKSh9ZCIKoCTUenwSteD-sw&s'
-    },
-    {
-      id: 6,
-      title: 'Pruebas',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Auditoria',
-      imageSrc: ''
-    },
-    {
-      id: 7,
-      title: 'Increible',
-      date: '10/08/2024',
-      time: '09:00',
-      type: 'Auditoria',
-      imageSrc: 'https://www.shutterstock.com/image-illustration/david-street-style-graphic-designtextile-600nw-2265632523.jpg'
-    },
-    // Otros eventos...
-  ];
-  
+  // Filtrar eventos basado en la búsqueda
+  const filteredEvents = events.filter(event => {
+    const searchTermLower = searchTerm.toLowerCase();
+    const titleMatches = event.title.toLowerCase().includes(searchTermLower);
+    const categoryMatches = event.categories.some(category => 
+      category.toLowerCase().includes(searchTermLower)
+    );
+    return titleMatches || categoryMatches;
+  });
 
   return (
     <div className="catalog-container">
@@ -103,16 +39,17 @@ function Catalog() {
         <div className="recent-events-catalog">
           <h2>Eventos proximos</h2>
           <div className="recent-events-catalog-grid">
-          {eventsProx.map(event => (
-            <EventCard
-              key={event.id}
-              title={event.title}
-              date={event.date}
-              time={event.time}
-              type={event.type}
-              imageSrc={event.imageSrc || defaultEventImage}
-            />
-          ))}
+            {eventsProx.map(event => (
+              <EventCard
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                date={event.date}
+                time={event.time}
+                type={event.categories.join(', ')} // Une las categorías en una cadena
+                imageSrc={event.imageSrc || defaultEventImage}
+              />
+            ))}
           </div>
         </div>
         <div className="all-events">
@@ -124,25 +61,31 @@ function Catalog() {
               className="search-icon"
               alt="Buscar"
             />
-            <input type="text" placeholder="Buscar" className="search-input" />
+            <input
+              type="text"
+              placeholder="Buscar"
+              className="search-input"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
           </div>
           <div className="all-events-catalog-grid">
-          {events.map(event => (
-            <EventCard
-              key={event.id}
-              title={event.title}
-              date={event.date}
-              time={event.time}
-              type={event.type}
-              imageSrc={event.imageSrc || defaultEventImage}
-            />
-          ))}
+            {filteredEvents.map(event => (
+              <EventCard
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                date={event.date}
+                time={event.time}
+                type={event.categories.join(', ')} // Une las categorías en una cadena
+                imageSrc={event.imageSrc || defaultEventImage}
+              />
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
 }
-
 
 export default Catalog;

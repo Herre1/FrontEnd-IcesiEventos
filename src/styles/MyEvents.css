@@ -19,26 +19,37 @@
     font-size: 24px;
     font-weight: bold;
   }
-  
-  .search-bar {
-    display: flex;
-    align-items: center;
-    background-color: #f2f2f2;
-    border-radius: 20px;
-    padding: 5px 10px;
+
+  .event-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
-  
-  .search-bar {
+
+  .search-bar-myEvent {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
     background-color: #e4e4e4;
     padding: 10px;
     border-radius: 8px;
+    width: 100%;
   }
   
-  .search-icon {
+  .search-icon-myEvent {
     width: 20px;
     height: 20px;
     margin-right: 10px;
+  }
+  
+  .search-input-myEvent {
+    border: none;
+    outline: none;
+    background: none;
+    flex-grow: 1;
+    width: 100%;
+  }
+  
+  .search-input-myEvent::placeholder {
+    color: #666;
   }
